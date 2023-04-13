@@ -75,6 +75,7 @@ public class Employee {
 				monthlySalary = 7000000;
 				break;
 			default:
+				//Error handling misal kasus masukan nilai diluar case
 				throw new IllegalArgumentException("Invalid grade");
 		}
 		monthlySalary = isForeigner ? (int) (monthlySalary * 1.5) : monthlySalary;
@@ -107,6 +108,15 @@ public class Employee {
 			monthWorkingInYear = date.getMonthValue() - monthJoined;
 		}else {
 			monthWorkingInYear = 12;
+		}
+		
+		//Error handling misal kasus masukan nilai negative
+		if (monthlySalary < 0 || otherMonthlyIncome < 0 || annualDeductible < 0) {
+        throw new IllegalArgumentException("Tidak bisa negative");
+		}
+		//Error handling misal kasus masukan nilai kosong
+		if (spouseIdNumber == null || childIdNumbers == null) {
+			throw new IllegalArgumentException("Tidak bisa kosong!");
 		}
 		
 		return TaxFunction.calculateTax(monthlySalary, otherMonthlyIncome, monthWorkingInYear, annualDeductible, spouseIdNumber.equals(""), childIdNumbers.size());

@@ -37,11 +37,9 @@ public class TaxFunction {
 		}
 		tax = (int) Math.round(taxKoma * ((totalMonthIncome * numberOfMonthWorking) - totalDeductible));
 		
-		if (tax < 0) {
-			return 0;
-		}else {
-			return tax;
-		}
+		// menghapus fungsi if-else paling akhir karena menurut saya tidak ada error handlingnya
+		return Math.max(tax, 0);
+		// menambahkan library Math.max bertujuan sebagai error handling supaya nilai tidak pernah negatif
 			 
 	}
 	

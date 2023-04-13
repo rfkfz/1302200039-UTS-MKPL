@@ -17,17 +17,25 @@ public class TaxFunction {
 		
 		if (numberOfMonthWorking > maxMonth) {
 			System.err.println("More than 12 month working per year");
+			return 0; // menambahkan return untuk jumlah dari tax yg invalid
+			// tujuan untuk memperjelas masukan dari user
 		}
-		
+
 		if (numberOfChildren > maxChild) {
-			numberOfChildren = maxChild;
+			numberOfChildren = maxChild; // mengubah angka menjadi variable
 		}
-		
+
+		int totalMonthIncome = monthlySalary + otherMonthlyIncome; // bertujuan mempersingkat aritmatika dalam fungsi
+		int totalDeductible = deductible; // bertujuan mempersingkat aritmatika dalam fungsi
+		int totalTaxAB = taxA + taxB; // bertujuan mempersingkat aritmatika dalam fungsi
+
+		// Fungsi if-else dibawah sudah diOptimalkan
 		if (isMarried) {
-			tax = (int) Math.round(taxKoma * (((monthlySalary + otherMonthlyIncome) * numberOfMonthWorking) - deductible - (taxA + taxB + (numberOfChildren * taxC))));
-		}else {
-			tax = (int) Math.round(taxKoma * (((monthlySalary + otherMonthlyIncome) * numberOfMonthWorking) - deductible - taxA));
+			totalDeductible += totalTaxAB + (numberOfChildren * taxC);
+		} else {
+			totalDeductible += totalTaxAB;
 		}
+		tax = (int) Math.round(taxKoma * ((totalMonthIncome * numberOfMonthWorking) - totalDeductible));
 		
 		if (tax < 0) {
 			return 0;
